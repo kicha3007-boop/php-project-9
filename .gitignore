@@ -1,0 +1,8 @@
+/vendor/
+node_modules/
+public/assets/css/main.css
+.env
+.phpunit.cache/
+.phpunit.result.cache
+.idea/
+.vscode/

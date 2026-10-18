@@ -1,0 +1,35 @@
+<?php
+
+use Hexlet\Code\Formatter;
+
+/**
+ * @var array[] $urls
+ * @var Slim\Interfaces\RouteParserInterface $router
+ */
+
+?>
+<h1 class="mb-6 text-3xl font-bold">Сайты</h1>
+<div class="overflow-x-auto">
+  <table data-test="urls" class="w-full border-collapse text-left">
+    <thead>
+      <tr class="border-b border-gray-300">
+        <?php foreach (['ID', 'Имя', 'Последняя проверка', 'Код ответа'] as $title) : ?>
+          <?= $this->fetch('components/header-cell.phtml', ['title' => $title]) ?>
+        <?php endforeach ?>
+      </tr>
+    </thead>
+    <tbody>
+      <?php foreach ($urls as $url) : ?>
+        <tr class="border-b border-gray-100 odd:bg-gray-50">
+          <td class="px-4 py-2"><?= $url['id'] ?></td>
+          <td class="px-4 py-2">
+            <a class="text-blue-600 hover:underline"
+               href="<?= $router->urlFor('urls.show', ['id' => (string) $url['id']]) ?>"><?= htmlspecialchars($url['name']) ?></a>
+          </td>
+          <td class="px-4 py-2"><?= Formatter::date($url['last_check_at']) ?></td>
+          <td class="px-4 py-2"><?= $url['status_code'] ?? '' ?></td>
+        </tr>
+      <?php endforeach ?>
+    </tbody>
+  </table>
+</div>

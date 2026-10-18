@@ -1,0 +1,60 @@
+<?php
+
+use Hexlet\Code\Formatter;
+
+/**
+ * @var array $url
+ * @var array[] $checks
+ * @var Slim\Interfaces\RouteParserInterface $router
+ */
+
+?>
+<h1 class="mb-6 text-3xl font-bold">Сайт: <?= htmlspecialchars($url['name']) ?></h1>
+<div class="overflow-x-auto">
+  <table data-test="url" class="w-full border-collapse text-left">
+    <tbody>
+      <tr class="border-b border-gray-100">
+        <td class="w-48 px-4 py-2 font-semibold">ID</td>
+        <td class="px-4 py-2"><?= $url['id'] ?></td>
+      </tr>
+      <tr class="border-b border-gray-100">
+        <td class="px-4 py-2 font-semibold">Имя</td>
+        <td class="px-4 py-2"><?= htmlspecialchars($url['name']) ?></td>
+      </tr>
+      <tr class="border-b border-gray-100">
+        <td class="px-4 py-2 font-semibold">Дата создания</td>
+        <td class="px-4 py-2"><?= Formatter::date($url['created_at']) ?></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<h2 class="mt-10 mb-4 text-2xl font-bold">Проверки</h2>
+<form method="post" action="<?= $router->urlFor('urls.checks.store', ['id' => (string) $url['id']]) ?>">
+  <input type="submit" value="Запустить проверку"
+         class="cursor-pointer rounded bg-blue-600 px-6 py-2 font-medium text-white hover:bg-blue-700">
+</form>
+
+<div class="mt-6 overflow-x-auto">
+  <table data-test="checks" class="w-full border-collapse text-left">
+    <thead>
+      <tr class="border-b border-gray-300">
+        <?php foreach (['ID', 'Код ответа', 'h1', 'title', 'description', 'Дата создания'] as $title) : ?>
+          <?= $this->fetch('components/header-cell.phtml', ['title' => $title]) ?>
+        <?php endforeach ?>
+      </tr>
+    </thead>
+    <tbody>
+      <?php foreach ($checks as $check) : ?>
+        <tr class="border-b border-gray-100 odd:bg-gray-50">
+          <td class="px-4 py-2"><?= $check['id'] ?></td>
+          <td class="px-4 py-2"><?= $check['status_code'] ?></td>
+          <td class="px-4 py-2"><?= htmlspecialchars(Formatter::truncate($check['h1'])) ?></td>
+          <td class="px-4 py-2"><?= htmlspecialchars(Formatter::truncate($check['title'])) ?></td>
+          <td class="px-4 py-2"><?= htmlspecialchars(Formatter::truncate($check['description'])) ?></td>
+          <td class="px-4 py-2"><?= Formatter::date($check['created_at']) ?></td>
+        </tr>
+      <?php endforeach ?>
+    </tbody>
+  </table>
+</div>

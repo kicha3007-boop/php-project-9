@@ -1,38 +1,36 @@
 # Анализатор страниц (PHP)
 
-[![hexlet-check](https://github.com/kicha3007-boop/php-project-9/actions/workflows/hexlet-check.yml/badge.svg)](https://github.com/kicha3007-boop/php-project-9/actions)
+[![hexlet-check](https://github.com/kicha3007-boop/php-project-9/actions/workflows/hexlet-check.yml/badge.svg)](https://github.com/kicha3007-boop/php-project-9/actions/workflows/hexlet-check.yml)
+[![PHP CI](https://github.com/kicha3007-boop/php-project-9/actions/workflows/workflow.yml/badge.svg)](https://github.com/kicha3007-boop/php-project-9/actions/workflows/workflow.yml)
 
-Создадите полноценное веб-приложение, которое выполняет запросы по сети и сохраняет данные в базу данных. Настроите CI и выполните деплой.
+Сайт, который проверяет страницы на SEO-пригодность: код ответа, `<h1>`, `<title>` и `<meta name="description">`.
 
-Учебный проект Хекслета: https://ru.hexlet.io/programs/php
-Как это должно работать: https://files.hexlet.app/a/tefi04
+Стек: Slim 4, PHP-View, PDO + PostgreSQL, Guzzle, DomCrawler, Valitron, Tailwind CSS.
 
-## Стек
+Демо: деплой на Render пока не выполнен.
 
-- PHP
+## Требования
 
-## Установка
+- PHP 8.3+ с `pdo_pgsql`
+- Composer, Node.js (сборка стилей)
+- PostgreSQL
 
-<!-- Опишите установку: клонирование, зависимости, переменные окружения -->
+## Установка и запуск
 
 ```bash
 git clone https://github.com/kicha3007-boop/php-project-9.git
 cd php-project-9
+make setup                                   # зависимости и сборка стилей
+export DATABASE_URL=postgresql://user:password@localhost:5432/page_analyzer
+make db-init                                 # таблицы из database.sql
+make start                                   # http://localhost:8000
 ```
 
-## Использование
+`APP_DEBUG=true` включает вывод трассировки ошибок; по умолчанию выключен.
 
-<!-- Добавьте примеры запуска и запись asciinema — именно это смотрит работодатель -->
+## Разработка
 
----
-
-<details>
-<summary>Автоматические тесты Хекслета</summary>
-
-Тесты запускаются на каждый коммит. За запуск отвечает файл `.github/workflows/hexlet-check.yml` — не удаляйте и не переименовывайте ни его, ни репозиторий.
-
-</details>
-
-## О Хекслете
-
-[Хекслет](https://ru.hexlet.io/) — школа программирования: авторские программы обучения с практикой, поддержкой наставников и реальными проектами, которые остаются в резюме. Этот репозиторий — один из таких проектов.
+```bash
+make lint   # PHP_CodeSniffer, PSR-12
+make test   # PHPUnit
+```
