@@ -23,10 +23,7 @@ session_start();
 $container = new Container();
 $container->set(PDO::class, fn() => Database::connect((string) getenv('DATABASE_URL')));
 $container->set(Messages::class, fn() => new Messages());
-$container->set(Client::class, fn() => new Client([
-    'timeout' => PageChecker::REQUEST_TIMEOUT,
-    'http_errors' => false,
-]));
+$container->set(Client::class, fn() => new Client(['timeout' => PageChecker::REQUEST_TIMEOUT]));
 $container->set(PhpRenderer::class, function (Container $container) {
     $renderer = new PhpRenderer(__DIR__ . '/../templates');
     $renderer->setLayout('layout.phtml');

@@ -15,7 +15,8 @@ class PageChecker
     }
 
     /**
-     * Запрашивает страницу и собирает данные проверки; null — если сайт недоступен.
+     * Запрашивает страницу и собирает данные проверки; null — если сайт недоступен
+     * или ответил ошибкой (4xx/5xx Guzzle бросает как RequestException).
      *
      * @return array{status_code: int, h1: ?string, title: ?string, description: ?string}|null
      */
